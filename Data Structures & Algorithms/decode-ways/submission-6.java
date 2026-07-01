@@ -1,0 +1,18 @@
+class Solution {
+    public int numDecodings(String s) {
+        int dp[] = new int[s.length()+1];
+        dp[s.length()] = 1;
+        return dfs(0,s,dp);
+    }
+
+    public int dfs(int i, String s, int dp[]){
+        if(i==s.length()) return dp[i];
+        if(s.charAt(i)=='0') return 0;
+        int res = dfs(i+1, s, dp);
+        if(i+1<s.length() && (s.charAt(i)=='1' ||(s.charAt(i)=='2' && s.charAt(i+1)<'7'))){
+            res+=dfs(i+2, s, dp);
+        }
+        dp[i] = res;
+        return res;
+    }
+}
